@@ -10,6 +10,17 @@
  * For demo, generates test OAuth URLs.
  */
 
+// Load environment variables from .env file
+$env_file = __DIR__ . '/../.env';
+if (file_exists($env_file)) {
+    $lines = file($env_file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    foreach ($lines as $line) {
+        if (strpos($line, '#') === 0 || strpos($line, '=') === false) continue;
+        list($key, $value) = explode('=', $line, 2);
+        putenv(trim($key) . '=' . trim($value));
+    }
+}
+
 session_start();
 
 header('Content-Type: application/json');
@@ -24,14 +35,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 
 require_once __DIR__ . '/db_connect.php';
 
-// ── OAuth Configuration (Add your actual keys) ──────────
-// Store these in environment variables in production
-define('GOOGLE_CLIENT_ID',     getenv('GOOGLE_CLIENT_ID')     ?: '1061767123135-2ckh1chtddaiql32ukkdmcce96t1ff69.apps.googleusercontent.com');
-define('GOOGLE_CLIENT_SECRET', getenv('GOOGLE_CLIENT_SECRET') ?: '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');
+// ── OAuth Configuration (Load from .env file) ──────────
+// Environment variables must be set in .env or server config
+define('GOOGLE_CLIENT_ID',     getenv('GOOGLE_CLIENT_ID')     ?: '');
+define('GOOGLE_CLIENT_SECRET', getenv('GOOGLE_CLIENT_SECRET') ?: '');
 define('GOOGLE_REDIRECT_URI',  'http://localhost/kickzone-fixed/backend/oauth.php?provider=google&action=callback');
 
-define('FACEBOOK_APP_ID',      getenv('FACEBOOK_APP_ID')      ?: 'YOUR_FACEBOOK_APP_ID');
-define('FACEBOOK_APP_SECRET',  getenv('FACEBOOK_APP_SECRET')  ?: 'YOUR_FACEBOOK_APP_SECRET');
+define('FACEBOOK_APP_ID',      getenv('FACEBOOK_APP_ID')      ?: '');
+define('FACEBOOK_APP_SECRET',  getenv('FACEBOOK_APP_SECRET')  ?: '');
 define('FACEBOOK_REDIRECT_URI','http://localhost/kickzone-fixed/backend/oauth.php?provider=facebook&action=callback');
 
 $method   = $_SERVER['REQUEST_METHOD'];
