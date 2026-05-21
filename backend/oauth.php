@@ -27,7 +27,7 @@ require_once __DIR__ . '/db_connect.php';
 // ── OAuth Configuration (Add your actual keys) ──────────
 // Store these in environment variables in production
 define('GOOGLE_CLIENT_ID',     getenv('GOOGLE_CLIENT_ID')     ?: '1061767123135-2ckh1chtddaiql32ukkdmcce96t1ff69.apps.googleusercontent.com');
-define('GOOGLE_CLIENT_SECRET', getenv('GOOGLE_CLIENT_SECRET') ?: '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');
+define('GOOGLE_CLIENT_SECRET', getenv('GOOGLE_CLIENT_SECRET') ?: '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');
 define('GOOGLE_REDIRECT_URI',  'http://localhost/kickzone-fixed/backend/oauth.php?provider=google&action=callback');
 
 define('FACEBOOK_APP_ID',      getenv('FACEBOOK_APP_ID')      ?: 'YOUR_FACEBOOK_APP_ID');
