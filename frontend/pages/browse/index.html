@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Browse Fields — KickZone</title>
+  <link rel="stylesheet" href="../../shared/css/global.css">
+  <link rel="stylesheet" href="../../shared/css/nav.css">
+  <link rel="stylesheet" href="css/browse.css">
+</head>
+<body>
+
+  <!-- ── Navbar ── -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a class="nav-logo" href="../landing/index.html">
+        <div class="nav-logo-icon">⚽</div>
+        <span class="nav-logo-text">KickZone</span>
+      </a>
+      <div class="nav-links">
+        <a href="../landing/index.html">Home</a>
+        <a href="index.html" class="active">Browse Fields</a>
+        <a href="../fields-map/index.html">Fields Map</a>
+      </div>
+      <div class="nav-actions" id="nav-actions">
+        <a href="../login/index.html"  class="btn btn-ghost">Login</a>
+        <a href="../signup/index.html" class="btn btn-green">Sign Up</a>
+      </div>
+      <div class="nav-burger" id="nav-burger">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
+  <div class="nav-mobile" id="nav-mobile">
+    <a href="../landing/index.html">Home</a>
+    <a href="index.html">Browse Fields</a>
+    <a href="../login/index.html">Login</a>
+    <a href="../signup/index.html">Sign Up Free</a>
+  </div>
+
+  <!-- ── Browse hero / search ── -->
+  <div class="browse-hero">
+    <div class="container">
+      <h1>Find Your Field</h1>
+      <p>500+ football fields across Egypt — filter, compare, and book instantly.</p>
+      <div class="search-bar">
+        <div class="search-wrap">
+          <span class="s-icon">🔍</span>
+          <input type="text" id="field-search" class="search-input"
+            placeholder="Search by name, area, or city…" oninput="renderFields()">
+        </div>
+        <button class="btn btn-green" onclick="renderFields()">Search</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Body ── -->
+  <div class="browse-body container">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sb-section" id="sport-filter-section">
+        <div class="sb-title">Sport Type</div>
+        <label class="filter-row"><input type="checkbox" value="Football" checked onchange="renderFields()"> Football (5-a-side)</label>
+        <label class="filter-row"><input type="checkbox" value="Football" onchange="renderFields()"> Football (7-a-side)</label>
+        <label class="filter-row"><input type="checkbox" value="Football" onchange="renderFields()"> Football (11-a-side)</label>
+        <label class="filter-row"><input type="checkbox" value="Futsal" onchange="renderFields()"> Futsal</label>
+      </div>
+      <div class="sb-section">
+        <div class="sb-title">Max Price / Hour</div>
+        <input type="range" id="price-range" min="100" max="1000" value="1000"
+          class="price-slider" oninput="updatePrice(this)">
+        <div id="price-label" class="price-val">Up to 1,000 EGP</div>
+      </div>
+      <div class="sb-section">
+        <div class="sb-title">Governorate</div>
+        <div class="gov-chips" id="gov-chips">
+          <button class="chip active" onclick="setGov(this,'All')">All</button>
+          <button class="chip" onclick="setGov(this,'Cairo')">Cairo</button>
+          <button class="chip" onclick="setGov(this,'Alexandria')">Alexandria</button>
+          <button class="chip" onclick="setGov(this,'Giza')">Giza</button>
+          <button class="chip" onclick="setGov(this,'6th October')">6th October</button>
+          <button class="chip" onclick="setGov(this,'New Cairo')">New Cairo</button>
+          <button class="chip" onclick="setGov(this,'Mansoura')">Mansoura</button>
+          <button class="chip" onclick="setGov(this,'Port Said')">Port Said</button>
+          <button class="chip" onclick="setGov(this,'Suez')">Suez</button>
+          <button class="chip" onclick="setGov(this,'Aswan')">Aswan</button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Results -->
+    <main class="results">
+      <!-- Mobile gov chips -->
+      <div class="mobile-chips" id="mob-chips">
+        <button class="chip active" onclick="setGov(this,'All')">All</button>
+        <button class="chip" onclick="setGov(this,'Cairo')">Cairo</button>
+        <button class="chip" onclick="setGov(this,'Alexandria')">Alex</button>
+        <button class="chip" onclick="setGov(this,'Giza')">Giza</button>
+        <button class="chip" onclick="setGov(this,'New Cairo')">New Cairo</button>
+      </div>
+
+      <div class="results-header">
+        <div class="res-count">Showing <strong id="res-num">—</strong> fields</div>
+        <select class="sort-sel" id="sort-sel" onchange="renderFields()">
+          <option value="popular">Most Popular</option>
+          <option value="price-asc">Price: Low → High</option>
+          <option value="price-desc">Price: High → Low</option>
+          <option value="rating">Highest Rated</option>
+        </select>
+      </div>
+
+      <div class="results-grid" id="fields-grid"></div>
+    </main>
+  </div><!-- /.browse-body -->
+
+  <!-- ── Booking Modal ── -->
+  <div class="modal-overlay" id="booking-modal">
+    <div class="modal">
+      <button class="modal-close" id="modal-close" aria-label="Close">✕</button>
+
+      <!-- Field preview banner -->
+      <div class="modal-banner" id="modal-field-img"></div>
+
+      <div class="modal-body">
+        <div class="modal-field-info">
+          <h2 id="modal-field-name">Field Name</h2>
+          <div class="modal-field-meta">
+            <span id="modal-field-loc">📍 Location</span>
+            <span class="modal-tag" id="modal-field-sport">Football</span>
+          </div>
+          <div class="modal-field-price" id="modal-field-price">— EGP / hr</div>
+        </div>
+
+        <form id="booking-form" novalidate>
+          <input type="hidden" id="modal-field-id">
+          <span id="modal-price-per-hour" data-price="0" style="display:none"></span>
+
+          <div class="form-group">
+            <label class="form-label" for="book-date">Date</label>
+            <input type="date" id="book-date" class="form-input" style="padding-left:14px" required>
+          </div>
+
+          <div class="modal-time-row">
+            <div class="form-group">
+              <label class="form-label" for="book-start">Start Time</label>
+              <input type="time" id="book-start" class="form-input" style="padding-left:14px" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="book-end">End Time</label>
+              <input type="time" id="book-end" class="form-input" style="padding-left:14px" required>
+            </div>
+          </div>
+
+          <div class="modal-price-preview" id="modal-price-preview"></div>
+
+          <button type="submit" class="btn btn-green btn-full" id="book-confirm-btn">
+            Confirm Booking
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="../../shared/js/common.js"></script>
+  <script src="js/browse.js"></script>
+</body>
+</html>

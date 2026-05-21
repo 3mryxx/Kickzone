@@ -1,0 +1,42 @@
+/* ===================================================
+   KICKZONE — Footer Styles
+   =================================================== */
+
+.footer {
+  border-top:1px solid var(--border);
+  padding:52px 24px 32px;
+  background:var(--surface);
+}
+.footer-inner {
+  max-width:1280px; margin:0 auto;
+  display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:40px;
+}
+.footer-brand p {
+  color:var(--muted); font-size:.875rem; line-height:1.7;
+  margin-top:12px; max-width:260px;
+}
+.footer-col h4 {
+  font-family:'Lexend',sans-serif; font-weight:700;
+  font-size:.875rem; margin-bottom:16px; color:var(--text);
+  letter-spacing:.3px;
+}
+.footer-col a {
+  display:block; font-size:.875rem; color:var(--muted);
+  margin-bottom:10px; transition:color .2s;
+}
+.footer-col a:hover { color:var(--green); }
+.footer-bottom {
+  max-width:1280px; margin:40px auto 0; padding-top:24px;
+  border-top:1px solid var(--border);
+  display:flex; align-items:center; justify-content:space-between;
+  flex-wrap:wrap; gap:10px;
+}
+.footer-bottom p { font-size:.82rem; color:var(--muted); }
+
+@media (max-width:1024px) {
+  .footer-inner { grid-template-columns:1fr 1fr; gap:28px; }
+}
+@media (max-width:600px) {
+  .footer-inner { grid-template-columns:1fr; }
+  .footer-bottom { flex-direction:column; text-align:center; }
+}

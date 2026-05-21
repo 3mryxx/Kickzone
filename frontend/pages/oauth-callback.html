@@ -1,0 +1,83 @@
+<!-- OAuth Callback Handler -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signing in...</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+    .container {
+      text-align: center;
+      color: white;
+    }
+    .spinner {
+      width: 50px;
+      height: 50px;
+      margin: 0 auto 20px;
+      border: 4px solid #333;
+      border-top: 4px solid #1db954;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    h2 { font-size: 24px; margin: 0; }
+    p { color: #888; margin: 5px 0 0 0; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="spinner"></div>
+    <h2>Welcome to KickZone!</h2>
+    <p>Signing you in...</p>
+  </div>
+
+  <script>
+    // Extract user data from URL
+    const params = new URLSearchParams(window.location.search);
+    const userToken = params.get('user');
+    const success = params.get('oauth');
+
+    if (success === 'success' && userToken) {
+      try {
+        // Decode user data
+        const userData = JSON.parse(atob(decodeURIComponent(userToken)));
+        
+        // Set in localStorage
+        localStorage.setItem('kickzone_user', JSON.stringify({
+          id: userData.id,
+          name: userData.name,
+          email: userData.email
+        }));
+        
+        console.log('OAuth successful, user saved:', userData.name);
+        
+        // Redirect to browse page
+        setTimeout(() => {
+          window.location.href = '/kickzone-fixed/frontend/pages/browse/index.html';
+        }, 500);
+      } catch (err) {
+        console.error('OAuth callback error:', err);
+        alert('Authentication failed. Please try again.');
+        window.location.href = '/kickzone-fixed/frontend/pages/login/index.html';
+      }
+    } else {
+      console.error('OAuth failed or invalid parameters');
+      alert('Authentication failed. Please try again.');
+      window.location.href = '/kickzone-fixed/frontend/pages/login/index.html';
+    }
+  </script>
+</body>
+</html>

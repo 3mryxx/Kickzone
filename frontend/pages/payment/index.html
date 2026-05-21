@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment — KickZone</title>
+    <link rel="stylesheet" href="../../shared/css/global.css">
+    <link rel="stylesheet" href="../../shared/css/nav.css">
+    <link rel="stylesheet" href="../../shared/css/footer.css">
+    <link rel="stylesheet" href="css/payment.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-inner">
+            <a class="nav-logo" href="../landing/index.html">
+                <div class="nav-logo-icon">⚽</div>
+                <span class="nav-logo-text">KickZone</span>
+            </a>
+            <div class="nav-links">
+                <a href="../browse/index.html">Browse Fields</a>
+                <a href="../player/index.html">My Bookings</a>
+            </div>
+            <div class="nav-actions" id="nav-actions">
+                <a href="../player/index.html" class="btn btn-ghost">👤 Profile</a>
+                <button class="btn btn-ghost" onclick="logout()">Logout</button>
+            </div>
+            <div class="nav-burger" id="nav-burger">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+    <div class="nav-mobile" id="nav-mobile">
+        <a href="../landing/index.html">Home</a>
+        <a href="../browse/index.html">Browse Fields</a>
+        <a href="../player/index.html">My Bookings</a>
+        <a href="../landing/index.html" onclick="logout(); return false;">Logout</a>
+    </div>
+
+    <!-- Main Content -->
+    <main class="payment-container">
+        <div class="payment-content">
+            <!-- Order Summary -->
+            <section class="order-section">
+                <h2>Order Summary</h2>
+                <div class="order-card">
+                    <div class="order-field">
+                        <img id="fieldImage" src="" alt="Field" class="field-image">
+                        <div class="field-info">
+                            <h3 id="fieldName">Loading...</h3>
+                            <p id="fieldLocation" class="location"></p>
+                            <div class="booking-details">
+                                <div class="detail-row">
+                                    <span>📅 Date:</span>
+                                    <strong id="bookingDate">—</strong>
+                                </div>
+                                <div class="detail-row">
+                                    <span>⏰ Time:</span>
+                                    <strong id="bookingTime">—</strong>
+                                </div>
+                                <div class="detail-row">
+                                    <span>⚽ Sport:</span>
+                                    <strong id="sportType">—</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="price-breakdown">
+                        <div class="breakdown-row">
+                            <span>Price per hour:</span>
+                            <span id="pricePerHour">—</span>
+                        </div>
+                        <div class="breakdown-row">
+                            <span>Duration:</span>
+                            <span id="duration">—</span>
+                        </div>
+                        <div class="breakdown-row">
+                            <span>Booking total:</span>
+                            <span id="subtotal">—</span>
+                        </div>
+                        <div class="breakdown-row total">
+                            <span>Amount due:</span>
+                            <strong id="totalPrice">EGP 0</strong>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Payment Method Selection -->
+            <section class="payment-section">
+                <h2>Payment Method</h2>
+                <div class="payment-methods">
+                    <label class="payment-method">
+                        <input type="radio" name="payment_method" value="card" checked>
+                        <span class="method-label">💳 Credit/Debit Card</span>
+                    </label>
+                    <label class="payment-method">
+                        <input type="radio" name="payment_method" value="wallet">
+                        <span class="method-label">👛 Digital Wallet</span>
+                    </label>
+                    <label class="payment-method">
+                        <input type="radio" name="payment_method" value="cash">
+                        <span class="method-label">💵 Pay at Field</span>
+                    </label>
+                </div>
+            </section>
+
+            <!-- Card Payment Form -->
+            <section id="cardSection" class="payment-form-section">
+                <h2>Card Details</h2>
+                <form id="cardForm" class="card-form">
+                    <div class="form-group">
+                        <label for="cardName">Cardholder Name</label>
+                        <input 
+                            type="text" 
+                            id="cardName" 
+                            name="card_name" 
+                            placeholder="John Doe"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cardNumber">Card Number</label>
+                        <input 
+                            type="text" 
+                            id="cardNumber" 
+                            name="card_number" 
+                            placeholder="1234 5678 9012 3456" 
+                            maxlength="19"
+                            required
+                        >
+                        <small>16-digit card number</small>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="cardExp">Expiry Date</label>
+                            <input 
+                                type="text" 
+                                id="cardExp" 
+                                name="card_exp" 
+                                placeholder="MM/YY" 
+                                maxlength="5"
+                                required
+                            >
+                        </div>
+                        <div class="form-group">
+                            <label for="cardCvv">CVV</label>
+                            <input 
+                                type="text" 
+                                id="cardCvv" 
+                                name="card_cvv" 
+                                placeholder="123" 
+                                maxlength="3"
+                                required
+                            >
+                        </div>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Wallet/Cash Info -->
+            <section id="walletSection" class="payment-info-section" style="display:none;">
+                <div class="info-box">
+                    <h3>💼 Digital Wallet Payment</h3>
+                    <p>Choose from popular digital wallets for faster checkout:</p>
+                    <div class="wallet-options">
+                        <button class="wallet-btn">📱 Apple Pay</button>
+                        <button class="wallet-btn">🅖 Google Pay</button>
+                        <button class="wallet-btn">💳 Fawry</button>
+                    </div>
+                </div>
+            </section>
+
+            <section id="cashSection" class="payment-info-section" style="display:none;">
+                <div class="info-box success">
+                    <h3>✅ Pay at Field</h3>
+                    <p>You can pay directly at the field on the day of your booking. Please arrive 10 minutes early.</p>
+                    <ul class="info-list">
+                        <li>Book your field now</li>
+                        <li>Pay at the field (Cash or Card)</li>
+                        <li>Confirmation sent to your email</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Action Buttons -->
+            <section class="action-section">
+                <button id="submitBtn" class="btn btn-primary">Complete Payment</button>
+                <button id="cancelBtn" class="btn btn-ghost">Cancel & Go Back</button>
+            </section>
+
+            <!-- Status Messages -->
+            <div id="statusMessage" class="status-message"></div>
+        </div>
+    </main>
+
+    <!-- Loading Spinner -->
+    <div id="loadingSpinner" class="spinner" style="display:none;">
+        <div class="spinner-circle"></div>
+        <p>Processing Payment...</p>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-bottom" style="padding: 20px 24px;">
+            <p>© 2025 KickZone. All rights reserved.</p>
+            <p>Made with ❤️ for football lovers in Egypt</p>
+        </div>
+    </footer>
+
+    <script src="../../shared/js/common.js"></script>
+    <script src="js/payment.js"></script>
+</body>
+</html>

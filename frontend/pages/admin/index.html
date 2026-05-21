@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard — KickZone</title>
+    <link rel="stylesheet" href="../../shared/css/global.css">
+    <link rel="stylesheet" href="../../shared/css/nav.css">
+    <link rel="stylesheet" href="../../shared/css/footer.css">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-inner">
+            <a class="nav-logo" href="../landing/index.html">
+                <div class="nav-logo-icon">⚽</div>
+                <span class="nav-logo-text">KickZone</span>
+            </a>
+            <div class="nav-links">
+                <a href="../browse/index.html">Browse Fields</a>
+                <a href="../player/index.html">My Profile</a>
+            </div>
+            <div class="nav-actions" id="nav-actions">
+                <span class="btn btn-ghost" style="pointer-events:none; opacity:.7;">🛡️ Admin Panel</span>
+                <button class="btn btn-ghost" onclick="logout()">Logout</button>
+            </div>
+            <div class="nav-burger" id="nav-burger">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+    <div class="nav-mobile" id="nav-mobile">
+        <a href="../landing/index.html">Home</a>
+        <a href="../browse/index.html">Browse Fields</a>
+        <a href="../player/index.html">My Profile</a>
+        <a href="../landing/index.html" onclick="logout(); return false;">Logout</a>
+    </div>
+
+    <!-- Admin Container -->
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <div class="admin-header">
+                <div class="admin-avatar">👨‍💼</div>
+                <div class="admin-info">
+                    <h3 id="adminName">Admin User</h3>
+                    <p>Administrator</p>
+                </div>
+            </div>
+
+            <nav class="admin-nav">
+                <button class="nav-item active" data-section="dashboard">
+                    📊 Dashboard
+                </button>
+                <button class="nav-item" data-section="users">
+                    👥 Users
+                </button>
+                <button class="nav-item" data-section="bookings">
+                    📅 Bookings
+                </button>
+                <button class="nav-item" data-section="payments">
+                    💳 Payments
+                </button>
+                <button class="nav-item" data-section="fields">
+                    ⚽ Fields
+                </button>
+                <button class="nav-item" data-section="settings">
+                    ⚙️ Settings
+                </button>
+            </nav>
+
+            <button class="logout-btn" onclick="logout()">🚪 Logout</button>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="admin-section active">
+                <div class="section-header">
+                    <h1>Dashboard</h1>
+                    <p>Overview of your KickZone platform</p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">👥</div>
+                        <div class="stat-content">
+                            <h3>Total Users</h3>
+                            <p class="stat-value" id="totalUsers">0</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">📅</div>
+                        <div class="stat-content">
+                            <h3>Total Bookings</h3>
+                            <p class="stat-value" id="totalBookings">0</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">💰</div>
+                        <div class="stat-content">
+                            <h3>Total Revenue</h3>
+                            <p class="stat-value" id="totalRevenue">EGP 0</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">⏳</div>
+                        <div class="stat-content">
+                            <h3>Pending Payments</h3>
+                            <p class="stat-value" id="pendingPayments">0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="recent-section">
+                    <div class="recent-header">
+                        <h2>Recent Bookings</h2>
+                        <a href="#" onclick="switchSection('bookings')" class="view-all-link">View All →</a>
+                    </div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Booking ID</th>
+                                <th>User</th>
+                                <th>Field</th>
+                                <th>Date</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recentBookingsTable">
+                            <tr><td colspan="7" class="loading">Loading...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Users Section -->
+            <section id="users" class="admin-section">
+                <div class="section-header">
+                    <h1>Users Management</h1>
+                    <p>View and manage all registered users</p>
+                </div>
+
+                <div class="search-box">
+                    <input type="text" id="userSearch" placeholder="Search users by name or email...">
+                    <button class="btn btn-primary">🔍 Search</button>
+                </div>
+
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Role</th>
+                            <th>Joined</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersTable">
+                        <tr><td colspan="7" class="loading">Loading...</td></tr>
+                    </tbody>
+                </table>
+
+                <div class="pagination" id="usersPagination"></div>
+            </section>
+
+            <!-- Bookings Section -->
+            <section id="bookings" class="admin-section">
+                <div class="section-header">
+                    <h1>Bookings Management</h1>
+                    <p>View and manage all bookings</p>
+                </div>
+
+                <div class="filter-box">
+                    <select id="bookingStatus">
+                        <option value="">All Statuses</option>
+                        <option value="pending">Pending</option>
+                        <option value="confirmed">Confirmed</option>
+                        <option value="cancelled">Cancelled</option>
+                    </select>
+                    <input type="date" id="bookingDate" placeholder="Filter by date">
+                    <button class="btn btn-primary">🔍 Filter</button>
+                </div>
+
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>User</th>
+                            <th>Field</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bookingsTable">
+                        <tr><td colspan="8" class="loading">Loading...</td></tr>
+                    </tbody>
+                </table>
+
+                <div class="pagination" id="bookingsPagination"></div>
+            </section>
+
+            <!-- Payments Section -->
+            <section id="payments" class="admin-section">
+                <div class="section-header">
+                    <h1>Payments Management</h1>
+                    <p>View and manage all payments</p>
+                </div>
+
+                <div class="filter-box">
+                    <select id="paymentStatus">
+                        <option value="">All Statuses</option>
+                        <option value="pending">Pending</option>
+                        <option value="completed">Completed</option>
+                        <option value="failed">Failed</option>
+                        <option value="refunded">Refunded</option>
+                    </select>
+                    <select id="paymentMethod">
+                        <option value="">All Methods</option>
+                        <option value="card">Card</option>
+                        <option value="wallet">Wallet</option>
+                        <option value="cash">Cash</option>
+                    </select>
+                    <button class="btn btn-primary">🔍 Filter</button>
+                </div>
+
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Booking</th>
+                            <th>User</th>
+                            <th>Amount</th>
+                            <th>Method</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="paymentsTable">
+                        <tr><td colspan="8" class="loading">Loading...</td></tr>
+                    </tbody>
+                </table>
+
+                <div class="pagination" id="paymentsPagination"></div>
+            </section>
+
+            <!-- Fields Section -->
+            <section id="fields" class="admin-section">
+                <div class="section-header">
+                    <h1>Fields Management</h1>
+                    <p>View and manage all sports fields</p>
+                    <button class="btn btn-primary" onclick="openAddFieldModal()">+ Add New Field</button>
+                </div>
+
+                <div class="search-box">
+                    <input type="text" id="fieldSearch" placeholder="Search fields by name or location...">
+                    <button class="btn btn-primary">🔍 Search</button>
+                </div>
+
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Location</th>
+                            <th>Governorate</th>
+                            <th>Sport Type</th>
+                            <th>Price/Hour</th>
+                            <th>Rating</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="fieldsTable">
+                        <tr><td colspan="8" class="loading">Loading...</td></tr>
+                    </tbody>
+                </table>
+
+                <div class="pagination" id="fieldsPagination"></div>
+            </section>
+
+            <!-- Settings Section -->
+            <section id="settings" class="admin-section">
+                <div class="section-header">
+                    <h1>Settings</h1>
+                    <p>Platform configuration and preferences</p>
+                </div>
+
+                <div class="settings-grid">
+                    <div class="settings-card">
+                        <h3>General Settings</h3>
+                        <div class="setting-item">
+                            <label>Platform Name</label>
+                            <input type="text" value="KickZone" disabled>
+                        </div>
+                        <div class="setting-item">
+                            <label>Support Email</label>
+                            <input type="email" value="support@kickzone.local">
+                        </div>
+                        <div class="setting-item">
+                            <label>Tax Rate (%)</label>
+                            <input type="number" value="14" min="0" max="100">
+                        </div>
+                    </div>
+
+                    <div class="settings-card">
+                        <h3>Payment Settings</h3>
+                        <div class="setting-item">
+                            <label>
+                                <input type="checkbox" checked> Enable Card Payments
+                            </label>
+                        </div>
+                        <div class="setting-item">
+                            <label>
+                                <input type="checkbox" checked> Enable Wallet Payments
+                            </label>
+                        </div>
+                        <div class="setting-item">
+                            <label>
+                                <input type="checkbox" checked> Enable Cash Payments
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="settings-card">
+                        <h3>Security</h3>
+                        <button class="btn btn-secondary">Change Password</button>
+                        <button class="btn btn-secondary" style="margin-top: 10px;">Enable 2FA</button>
+                    </div>
+
+                    <div class="settings-card">
+                        <h3>Export Data</h3>
+                        <button class="btn btn-secondary">📥 Export Users CSV</button>
+                        <button class="btn btn-secondary" style="margin-top: 10px;">📥 Export Bookings CSV</button>
+                    </div>
+                </div>
+
+                <div class="settings-actions" style="margin-top: 30px;">
+                    <button class="btn btn-primary">💾 Save Settings</button>
+                    <button class="btn btn-ghost">Cancel</button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Add Field Modal -->
+    <div id="addFieldModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add New Field</h2>
+                <button class="modal-close" onclick="closeAddFieldModal()">✕</button>
+            </div>
+            <form id="addFieldForm" class="modal-form">
+                <div class="form-group">
+                    <label>Field Name *</label>
+                    <input type="text" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label>Location *</label>
+                    <input type="text" name="location" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Governorate *</label>
+                        <input type="text" name="governorate" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Sport Type *</label>
+                        <select name="sport_type" required>
+                            <option value="Football">Football</option>
+                            <option value="Futsal">Futsal</option>
+                            <option value="Tennis">Tennis</option>
+                            <option value="Basketball">Basketball</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Price Per Hour (EGP) *</label>
+                        <input type="number" name="price_hour" min="0" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Rating</label>
+                        <input type="number" name="rating" min="0" max="5" step="0.1" value="4.5">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Image URL</label>
+                    <input type="url" name="image_url" placeholder="https://...">
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Add Field</button>
+                    <button type="button" class="btn btn-ghost" onclick="closeAddFieldModal()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-bottom" style="padding: 20px 24px;">
+            <p>© 2025 KickZone. All rights reserved.</p>
+            <p>Made with ❤️ for football lovers in Egypt</p>
+        </div>
+    </footer>
+
+    <script src="../../shared/js/common.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>

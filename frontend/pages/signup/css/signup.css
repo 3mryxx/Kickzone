@@ -1,0 +1,114 @@
+/* ===================================================
+   KICKZONE — Signup Page Styles
+   (extends login.css layout)
+   =================================================== */
+
+.auth-body {
+  padding-top: 0;
+  background: radial-gradient(ellipse 70% 60% at 50% 0%,
+    rgba(29,185,84,.1) 0%, transparent 60%), var(--bg);
+}
+
+.auth-wrap {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  max-width: 1000px;
+  margin: 0 auto;
+  margin-top: var(--nav-h);
+  background: var(--surface);
+  border-left: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+/* Art panel */
+.auth-art {
+  background: linear-gradient(160deg, #0b1a0e 0%, #0d2415 60%, #081208 100%);
+  padding: 48px 40px;
+  display: flex; flex-direction: column; justify-content: space-between;
+  position: relative; overflow: hidden;
+}
+.auth-art::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%231db954' fill-opacity='.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E");
+}
+.auth-art-logo { position: relative; z-index: 1; }
+.auth-art-mid  { position: relative; z-index: 1; text-align: center; }
+.auth-art-ball {
+  width: 90px; height: 90px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #2ee070, #0f7a34);
+  margin: 0 auto 20px;
+  font-size: 44px; display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 0 40px rgba(29,185,84,.5);
+  animation: pulse-ball 3s ease-in-out infinite;
+}
+@keyframes pulse-ball {
+  0%,100% { box-shadow: 0 0 40px rgba(29,185,84,.5); }
+  50%      { box-shadow: 0 0 64px rgba(29,185,84,.7); }
+}
+.auth-art-mid h2 {
+  font-family: 'Lexend', sans-serif; font-weight: 900;
+  font-size: 1.5rem; margin-bottom: 10px;
+}
+.auth-art-mid p { color: var(--muted); font-size: .88rem; line-height: 1.6; margin-bottom: 24px; }
+.auth-art-perks { text-align: left; display: inline-block; }
+.perk { font-size: .85rem; color: var(--muted); margin-bottom: 8px; }
+.auth-art-foot { position: relative; z-index: 1; font-size: .75rem; color: rgba(255,255,255,.2); }
+
+/* Form panel */
+.auth-form-side {
+  padding: 48px 44px;
+  overflow-y: auto;
+}
+.auth-form-side h1 {
+  font-family: 'Lexend', sans-serif; font-weight: 900;
+  font-size: 1.7rem; letter-spacing: -.5px; margin-bottom: 6px;
+}
+.auth-form-side .sub {
+  font-size: .9rem; color: var(--muted); margin-bottom: 28px;
+}
+.auth-form-side .sub a { color: var(--green); font-weight: 600; }
+.auth-form-side .sub a:hover { text-decoration: underline; }
+
+.form-row-split {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+}
+
+.form-check {
+  display: flex; align-items: flex-start; gap: 8px;
+}
+.form-check input  { width: 16px; height: 16px; margin-top: 2px; accent-color: var(--green); cursor: pointer; flex-shrink: 0; }
+.form-check label  { font-size: .85rem; color: var(--muted); cursor: pointer; line-height: 1.4; }
+
+.auth-divider {
+  display: flex; align-items: center; gap: 12px;
+  margin: 20px 0; color: var(--muted); font-size: .74rem; letter-spacing: .5px;
+}
+.auth-divider::before,
+.auth-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+.social-btns { display: flex; gap: 10px; }
+.social-btn {
+  flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px;
+  background: rgba(255,255,255,.05); border: 1px solid var(--border);
+  border-radius: 10px; padding: 11px 14px;
+  font-size: .88rem; font-weight: 500; color: var(--text);
+  cursor: pointer; transition: all .2s;
+}
+.social-btn:hover {
+  background: rgba(255,255,255,.1);
+  border-color: rgba(255,255,255,.2);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .form-row-split { grid-template-columns: 1fr; gap: 0; }
+}
+@media (max-width: 768px) {
+  .auth-wrap { grid-template-columns: 1fr; }
+  .auth-art  { display: none; }
+  .auth-form-side { padding: 36px 24px; }
+  .social-btns { flex-direction: column; }
+}

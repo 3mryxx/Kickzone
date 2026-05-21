@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 — KickZone</title>
+  <link rel="stylesheet" href="../../shared/css/global.css">
+  <link rel="stylesheet" href="../../shared/css/nav.css">
+  <style>
+    .page-404 {
+      min-height: 80vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; padding: 40px 24px;
+    }
+    .err-num {
+      font-family: 'Lexend', sans-serif; font-weight: 900;
+      font-size: clamp(6rem, 18vw, 12rem); line-height: 1;
+      color: var(--green); opacity: .15; margin-bottom: -20px;
+    }
+    .err-icon { font-size: 5rem; margin-bottom: 16px; }
+    .err-title {
+      font-family: 'Lexend', sans-serif; font-weight: 900;
+      font-size: 2rem; margin-bottom: 12px;
+    }
+    .err-sub  { color: var(--muted); font-size: 1rem; max-width: 360px; margin-bottom: 32px; line-height: 1.6; }
+    .err-btns { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a class="nav-logo" href="../landing/index.html">
+        <div class="nav-logo-icon">⚽</div>
+        <span class="nav-logo-text">KickZone</span>
+      </a>
+    </div>
+  </nav>
+
+  <div class="page-404">
+    <div class="err-num">404</div>
+    <div class="err-icon">🏟️</div>
+    <h1 class="err-title">Page Not Found</h1>
+    <p class="err-sub">Looks like this pitch doesn't exist. It might have been moved or deleted.</p>
+    <div class="err-btns">
+      <a href="../landing/index.html" class="btn btn-green">Go Home</a>
+      <a href="../browse/index.html"  class="btn btn-outline">Browse Fields</a>
+    </div>
+  </div>
+
+  <script src="../../shared/js/common.js"></script>
+</body>
+</html>

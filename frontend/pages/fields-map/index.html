@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fields Map — KickZone</title>
+  <link rel="stylesheet" href="../../shared/css/global.css">
+  <link rel="stylesheet" href="../../shared/css/nav.css">
+  <link rel="stylesheet" href="../../shared/css/footer.css">
+  <link rel="stylesheet" href="css/map.css">
+</head>
+<body>
+
+  <!-- ── Navbar ── -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a class="nav-logo" href="../landing/index.html">
+        <div class="nav-logo-icon">⚽</div>
+        <span class="nav-logo-text">KickZone</span>
+      </a>
+      <div class="nav-links">
+        <a href="../landing/index.html">Home</a>
+        <a href="../browse/index.html">Browse Fields</a>
+        <a href="index.html" class="active">Fields Map</a>
+      </div>
+      <div class="nav-actions" id="nav-actions">
+        <a href="../login/index.html" class="btn btn-ghost">Login</a>
+        <a href="../signup/index.html" class="btn btn-green">Sign Up</a>
+      </div>
+      <div class="nav-burger" id="nav-burger">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
+  <div class="nav-mobile" id="nav-mobile">
+    <a href="../landing/index.html">Home</a>
+    <a href="../browse/index.html">Browse Fields</a>
+    <a href="index.html">Fields Map</a>
+    <a href="../login/index.html">Login</a>
+    <a href="../signup/index.html">Sign Up Free</a>
+  </div>
+
+  <!-- ── Map Hero ── -->
+  <div class="map-hero">
+    <div class="container">
+      <div class="map-hero-text">
+        <div class="section-tag">Interactive Map</div>
+        <h1>Soccer Fields Across Egypt</h1>
+        <p>Explore all registered football fields on an interactive map. Click any pin to view details and book.</p>
+      </div>
+      <div class="map-filters">
+        <select id="gov-filter" class="map-select" onchange="filterMapFields()">
+          <option value="all">All Governorates</option>
+          <option value="Cairo">Cairo</option>
+          <option value="Alexandria">Alexandria</option>
+          <option value="Giza">Giza</option>
+          <option value="6th October">6th October</option>
+          <option value="New Cairo">New Cairo</option>
+          <option value="Mansoura">Mansoura</option>
+          <option value="Tanta">Tanta</option>
+          <option value="Aswan">Aswan</option>
+          <option value="Luxor">Luxor</option>
+          <option value="Port Said">Port Said</option>
+          <option value="Suez">Suez</option>
+          <option value="Ismailia">Ismailia</option>
+        </select>
+        <select id="sport-filter" class="map-select" onchange="filterMapFields()">
+          <option value="all">All Sports</option>
+          <option value="Football">Football</option>
+          <option value="Futsal">Futsal</option>
+        </select>
+        <div class="map-count">Showing <strong id="field-count">—</strong> fields</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Map Layout ── -->
+  <div class="map-layout container">
+    <!-- Sidebar list -->
+    <aside class="map-sidebar" id="map-sidebar">
+      <div class="sidebar-search">
+        <input type="text" id="map-search" class="form-input" placeholder="🔍 Search fields…" oninput="filterMapFields()">
+      </div>
+      <div class="field-list" id="field-list">
+        <div class="map-loading">Loading fields…</div>
+      </div>
+    </aside>
+
+    <!-- Map container -->
+    <div class="map-container">
+      <div id="google-map"></div>
+    </div>
+  </div>
+
+  <!-- Field detail panel -->
+  <div class="field-panel" id="field-panel">
+    <button class="panel-close" onclick="closePanel()">✕</button>
+    <div class="panel-img" id="panel-img"></div>
+    <div class="panel-body">
+      <h2 id="panel-name">Field Name</h2>
+      <div class="panel-meta">
+        <span id="panel-loc">📍 Location</span>
+        <span class="panel-rating" id="panel-rating">⭐ —</span>
+      </div>
+      <div class="panel-tags" id="panel-tags"></div>
+      <div class="panel-price" id="panel-price">— EGP/hr</div>
+      <a href="../browse/index.html" class="btn btn-green btn-full">Book This Field →</a>
+    </div>
+  </div>
+
+  <!-- ── Footer ── -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a class="nav-logo" href="../landing/index.html">
+          <div class="nav-logo-icon">⚽</div>
+          <span class="nav-logo-text">KickZone</span>
+        </a>
+        <p>Egypt's leading platform for finding and booking football fields.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <a href="../browse/index.html">Browse Fields</a>
+        <a href="index.html">Fields Map</a>
+        <a href="../landing/index.html#how-it-works">How It Works</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="#">About Us</a>
+        <a href="#">Contact</a>
+        <a href="#">Blog</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 KickZone. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Leaflet CSS/JS (free, no API key needed) -->
+  <!-- REPLACED: Now using Google Maps API -->
+
+  <!-- ⚠️ ADD YOUR GOOGLE MAPS API KEY BELOW ⚠️ -->
+  <!-- Get your API key from: GOOGLEMAPS_SETUP.md -->
+  <!-- Replace YOUR_GOOGLE_MAPS_API_KEY with your actual key -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBgE3Kdabdsj09eRbcQ3MKNmWRvUs7XS8E&libraries=places"></script>
+
+  <script src="../../shared/js/common.js"></script>
+  <script src="js/map.js"></script>
+</body>
+</html>

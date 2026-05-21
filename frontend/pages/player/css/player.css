@@ -1,0 +1,212 @@
+/* ===================================================
+   KICKZONE — Player Profile Styles
+   =================================================== */
+
+/* ── Profile Hero ── */
+.profile-hero {
+  background: linear-gradient(160deg, #0b1a0e, var(--bg));
+  border-bottom: 1px solid var(--border);
+  padding: 48px 0 0;
+}
+.profile-hero-inner {
+  display: flex; align-items: center; gap: 24px;
+  flex-wrap: wrap; margin-bottom: 36px;
+}
+.avatar {
+  width: 72px; height: 72px; border-radius: 50%;
+  background: linear-gradient(135deg, #1db954, #0f7a34);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Lexend', sans-serif; font-weight: 900;
+  font-size: 1.8rem; color: #080f0a; flex-shrink: 0;
+  box-shadow: 0 0 24px var(--green-glow);
+}
+.profile-hero-info { flex: 1; min-width: 160px; }
+.profile-hero-info h1 {
+  font-family: 'Lexend', sans-serif; font-weight: 900;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  letter-spacing: -.5px; margin-bottom: 6px;
+}
+.profile-meta {
+  font-size: .85rem; color: var(--muted);
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+}
+.sep { color: var(--border); }
+
+/* ── Stats strip ── */
+.profile-stats {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--border);
+  margin-top: 8px;
+}
+.pstat {
+  text-align: center; padding: 22px 12px;
+  border-right: 1px solid var(--border);
+}
+.pstat:last-child { border-right: none; }
+.pstat-val {
+  font-family: 'Lexend', sans-serif; font-weight: 900;
+  font-size: 1.5rem; color: var(--green); margin-bottom: 4px;
+}
+.pstat-label { font-size: .78rem; color: var(--muted); }
+
+/* ── Profile body ── */
+.profile-body {
+  padding-top: 40px;
+  padding-bottom: 64px;
+}
+
+/* ── Bookings header ── */
+.bookings-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 24px; flex-wrap: wrap; gap: 14px;
+}
+.bookings-header h2 {
+  font-family: 'Lexend', sans-serif; font-weight: 700;
+  font-size: 1.2rem;
+}
+.bookings-tabs { display: flex; gap: 6px; }
+.tab-btn {
+  padding: 6px 16px; border-radius: 100px;
+  border: 1px solid var(--border); background: transparent;
+  font-size: .82rem; color: var(--muted); cursor: pointer;
+  transition: all .2s; font-family: 'DM Sans', sans-serif;
+}
+.tab-btn:hover, .tab-btn.active {
+  background: rgba(29,185,84,.12);
+  border-color: rgba(29,185,84,.4);
+  color: var(--green);
+}
+
+/* ── Bookings list ── */
+.bookings-list { display: flex; flex-direction: column; gap: 14px; }
+.bk-loading, .bk-empty {
+  text-align: center; padding: 60px 20px;
+  color: var(--muted); font-size: .95rem;
+}
+.bk-empty-icon { font-size: 2.5rem; margin-bottom: 12px; }
+
+/* Booking card */
+.bk-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  display: grid;
+  grid-template-columns: 100px 1fr auto;
+  overflow: hidden;
+  transition: border-color .2s;
+}
+.bk-card:hover { border-color: rgba(255,255,255,.14); }
+.bk-card.status-cancelled { opacity: .55; }
+
+.bk-img {
+  background-size: cover; background-position: center;
+  background-color: var(--surface);
+  min-height: 90px;
+}
+.bk-info {
+  padding: 16px 18px;
+}
+.bk-info h3 {
+  font-family: 'Lexend', sans-serif; font-weight: 700;
+  font-size: .95rem; margin-bottom: 4px;
+}
+.bk-info .bk-loc {
+  font-size: .8rem; color: var(--muted); margin-bottom: 8px;
+}
+.bk-info .bk-when {
+  font-size: .82rem; color: var(--text);
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+}
+.bk-info .bk-when span { color: var(--muted); }
+
+.bk-right {
+  padding: 16px 18px;
+  display: flex; flex-direction: column;
+  align-items: flex-end; justify-content: space-between;
+  min-width: 120px;
+}
+.bk-price {
+  font-family: 'Lexend', sans-serif; font-weight: 700;
+  font-size: 1rem; color: var(--green);
+}
+.bk-price-sub { font-size: .75rem; color: var(--muted); font-weight: 400; }
+
+.bk-badge {
+  display: inline-block; padding: 3px 10px;
+  border-radius: 100px; font-size: .72rem; font-weight: 700;
+  letter-spacing: .3px; text-transform: uppercase;
+}
+.bk-badge.confirmed { background: rgba(29,185,84,.15); color: var(--green); }
+.bk-badge.pending   { background: rgba(251,191,36,.15); color: #fbbf24; }
+.bk-badge.cancelled { background: rgba(239,68,68,.1);   color: #f87171; }
+
+.bk-cancel-btn {
+  font-size: .75rem; color: var(--muted);
+  cursor: pointer; transition: color .2s;
+  margin-top: 6px; background: none; border: none;
+  font-family: inherit;
+}
+.bk-cancel-btn:hover { color: #f87171; }
+
+/* ── Edit Modal ── */
+.modal-overlay {
+  display: none;
+  position: fixed; inset: 0; z-index: 500;
+  background: rgba(0,0,0,.7);
+  backdrop-filter: blur(6px);
+  align-items: center; justify-content: center;
+  padding: 20px;
+}
+.modal-overlay.open { display: flex; }
+
+.modal-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 32px;
+  width: 100%; max-width: 440px;
+  position: relative;
+  animation: modal-in .25s ease;
+}
+.modal-card-sm { max-width: 360px; }
+@keyframes modal-in {
+  from { transform: translateY(20px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+.modal-card h2 {
+  font-family: 'Lexend', sans-serif; font-weight: 700;
+  font-size: 1.2rem; margin-bottom: 6px;
+}
+.modal-sub { font-size: .88rem; color: var(--muted); margin-bottom: 24px; }
+
+.modal-close-btn {
+  position: absolute; top: 16px; right: 16px;
+  background: transparent; border: 1px solid var(--border);
+  color: var(--muted); border-radius: 50%;
+  width: 30px; height: 30px; font-size: 13px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: all .2s;
+}
+.modal-close-btn:hover { color: var(--text); border-color: rgba(255,255,255,.2); }
+
+/* Red button for cancel */
+.btn-red {
+  background: #dc2626; color: #fff;
+  border-radius: 10px; padding: 10px 22px;
+  font-family: 'Lexend', sans-serif; font-size: .875rem; font-weight: 600;
+  transition: all .2s;
+}
+.btn-red:hover { background: #ef4444; }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .profile-stats { grid-template-columns: repeat(2,1fr); }
+  .pstat:nth-child(2) { border-right: none; }
+  .bk-card { grid-template-columns: 80px 1fr; }
+  .bk-right { grid-column: 1/-1; flex-direction: row; align-items: center; padding-top: 0; border-top: 1px solid var(--border); }
+}
+@media (max-width: 500px) {
+  .profile-stats { grid-template-columns: 1fr 1fr; }
+  .bk-img { display: none; }
+  .bk-card { grid-template-columns: 1fr; }
+}

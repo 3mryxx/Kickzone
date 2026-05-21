@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Account — KickZone</title>
+  <link rel="stylesheet" href="../../shared/css/global.css">
+  <link rel="stylesheet" href="../../shared/css/nav.css">
+  <link rel="stylesheet" href="css/signup.css">
+</head>
+<body class="auth-body">
+
+  <!-- ── Navbar ── -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a class="nav-logo" href="../landing/index.html">
+        <div class="nav-logo-icon">⚽</div>
+        <span class="nav-logo-text">KickZone</span>
+      </a>
+      <div class="nav-links">
+        <a href="../landing/index.html#how-it-works">How It Works</a>
+        <a href="../browse/index.html">Browse Fields</a>
+      </div>
+      <div class="nav-actions">
+        <a href="../login/index.html" class="btn btn-ghost">Login</a>
+        <a href="index.html" class="btn btn-green active">Sign Up</a>
+      </div>
+      <div class="nav-burger" id="nav-burger">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
+  <div class="nav-mobile" id="nav-mobile">
+    <a href="../landing/index.html">Home</a>
+    <a href="../browse/index.html">Browse Fields</a>
+    <a href="../login/index.html">Login</a>
+    <a href="index.html">Sign Up Free</a>
+  </div>
+
+  <!-- ── Auth layout ── -->
+  <div class="auth-wrap">
+
+    <!-- Left art panel -->
+    <div class="auth-art">
+      <div class="auth-art-logo">
+        <a class="nav-logo" href="../landing/index.html">
+          <div class="nav-logo-icon">⚽</div>
+          <span class="nav-logo-text">KickZone</span>
+        </a>
+      </div>
+      <div class="auth-art-mid">
+        <div class="auth-art-ball">🏆</div>
+        <h2>Join KickZone</h2>
+        <p>Create your free account and start booking the best football fields across Egypt today.</p>
+        <div class="auth-art-perks">
+          <div class="perk">✅ Free to sign up</div>
+          <div class="perk">✅ Instant booking confirmation</div>
+          <div class="perk">✅ 500+ fields nationwide</div>
+        </div>
+      </div>
+      <p class="auth-art-foot">© 2025 KickZone — Egypt's #1 Field Booking Platform</p>
+    </div>
+
+    <!-- Right form panel -->
+    <div class="auth-form-side">
+      <h1>Create Account</h1>
+      <p class="sub">Already a member?
+        <a href="../login/index.html">Sign in</a>
+      </p>
+
+      <form id="signup-form" novalidate>
+
+        <!-- Name + Phone row -->
+        <div class="form-row-split">
+          <div class="form-group">
+            <label class="form-label" for="fullname">Full Name</label>
+            <div class="input-wrap">
+              <span class="i-icon">👤</span>
+              <input type="text" id="fullname" name="full_name"
+                class="form-input" placeholder="Ahmed Mohamed"
+                autocomplete="name" required>
+            </div>
+            <div class="field-error" id="name-err">Name must be at least 3 characters.</div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="phone">Phone Number</label>
+            <div class="input-wrap">
+              <span class="i-icon">📱</span>
+              <input type="tel" id="phone" name="phone"
+                class="form-input" placeholder="01XXXXXXXXX"
+                autocomplete="tel">
+            </div>
+            <div class="field-error" id="phone-err">Enter a valid Egyptian phone number.</div>
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+          <label class="form-label" for="email">Email Address</label>
+          <div class="input-wrap">
+            <span class="i-icon">✉</span>
+            <input type="email" id="email" name="email"
+              class="form-input" placeholder="you@example.com"
+              autocomplete="email" required>
+          </div>
+          <div class="field-error" id="email-err">Please enter a valid email address.</div>
+        </div>
+
+        <!-- Password + Confirm row -->
+        <div class="form-row-split">
+          <div class="form-group">
+            <label class="form-label" for="password">Password</label>
+            <div class="input-wrap">
+              <span class="i-icon">🔒</span>
+              <input type="password" id="password" name="password"
+                class="form-input" placeholder="Min. 6 characters"
+                autocomplete="new-password" required>
+              <span class="toggle-pw" data-target="password" title="Show password">👁</span>
+            </div>
+            <div class="field-error" id="pw-err">Password must be at least 6 characters.</div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="confirm">Confirm Password</label>
+            <div class="input-wrap">
+              <span class="i-icon">🔒</span>
+              <input type="password" id="confirm" name="confirm"
+                class="form-input" placeholder="Re-enter password"
+                autocomplete="new-password" required>
+              <span class="toggle-pw" data-target="confirm" title="Show password">👁</span>
+            </div>
+            <div class="field-error" id="confirm-err">Passwords do not match.</div>
+          </div>
+        </div>
+
+        <!-- Terms -->
+        <div class="form-check" style="margin-bottom:8px">
+          <input type="checkbox" id="terms" name="terms">
+          <label for="terms">I agree to the
+            <a href="#" style="color:var(--green)">Terms & Conditions</a> and
+            <a href="#" style="color:var(--green)">Privacy Policy</a>
+          </label>
+        </div>
+        <div class="field-error" id="terms-err" style="margin-bottom:18px">
+          You must accept the terms to continue.
+        </div>
+
+        <button type="submit" class="btn btn-green btn-full" id="signup-btn">
+          Create Account Now
+        </button>
+      </form>
+
+      <div class="auth-divider"><span>OR SIGN UP WITH</span></div>
+
+      <div class="social-btns">
+        <button class="social-btn" id="google-btn">
+          <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
+            <path d="M18.8 10.21C18.8 9.56 18.74 8.93 18.63 8.33H10v3.55h4.93c-.22 1.14-.87 2.11-1.84 2.76v2.31h2.97C17.8 15.35 18.8 13 18.8 10.21z" fill="#4285F4"/>
+            <path d="M10 19.17c2.48 0 4.55-.82 6.07-2.22l-2.97-2.31c-.82.55-1.86.88-3.1.88-2.38 0-4.4-1.61-5.13-3.76H1.82v2.37C3.33 17.11 6.42 19.17 10 19.17z" fill="#34A853"/>
+            <path d="M4.87 11.74c-.18-.55-.29-1.13-.29-1.74s.11-1.19.29-1.74V5.89H1.82A9.17 9.17 0 000 10c0 1.48.36 2.88.82 4.11l3.05-2.37z" fill="#FBBC05"/>
+            <path d="M10 4.48c1.35 0 2.55.46 3.5 1.38l2.63-2.62C14.54 1.74 12.47.83 10 .83 6.42.83 3.33 2.89 1.82 5.89l3.05 2.37C5.6 6.09 7.62 4.48 10 4.48z" fill="#EA4335"/>
+          </svg>
+          Google
+        </button>
+        <button class="social-btn" id="fb-btn">
+          <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
+            <path d="M20 10C20 4.477 15.523 0 10 0S0 4.477 0 10c0 4.991 3.657 9.128 8.438 9.878V12.89H5.898V10h2.54V7.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V10h2.773l-.443 2.89h-2.33v6.988C16.343 19.128 20 14.991 20 10z" fill="#3B82F6"/>
+          </svg>
+          Facebook
+        </button>
+      </div>
+
+    </div><!-- /.auth-form-side -->
+  </div><!-- /.auth-wrap -->
+
+  <script src="../../shared/js/common.js"></script>
+  <script src="js/signup.js"></script>
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Profile — KickZone</title>
+  <link rel="stylesheet" href="../../shared/css/global.css">
+  <link rel="stylesheet" href="../../shared/css/nav.css">
+  <link rel="stylesheet" href="../../shared/css/footer.css">
+  <link rel="stylesheet" href="css/player.css">
+</head>
+<body>
+
+  <!-- ── Navbar ── -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a class="nav-logo" href="../landing/index.html">
+        <div class="nav-logo-icon">⚽</div>
+        <span class="nav-logo-text">KickZone</span>
+      </a>
+      <div class="nav-links">
+        <a href="../landing/index.html">Home</a>
+        <a href="../browse/index.html">Browse Fields</a>
+        <a href="index.html" class="active">My Profile</a>
+      </div>
+      <div class="nav-actions" id="nav-actions">
+        <button class="btn btn-ghost" onclick="logout()">Logout</button>
+      </div>
+      <div class="nav-burger" id="nav-burger">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
+  <div class="nav-mobile" id="nav-mobile">
+    <a href="../landing/index.html">Home</a>
+    <a href="../browse/index.html">Browse Fields</a>
+    <a href="index.html">My Profile</a>
+    <a href="#" onclick="logout()">Logout</a>
+  </div>
+
+  <!-- ── Profile Header ── -->
+  <div class="profile-hero">
+    <div class="container">
+      <div class="profile-hero-inner">
+        <div class="avatar" id="avatar-circle">?</div>
+        <div class="profile-hero-info">
+          <h1 id="profile-name">Loading…</h1>
+          <div class="profile-meta">
+            <span id="profile-email">—</span>
+            <span class="sep">·</span>
+            <span id="profile-member">Member since —</span>
+          </div>
+        </div>
+        <button class="btn btn-outline" onclick="openEditModal()">✏️ Edit Profile</button>
+      </div>
+
+      <!-- Stats strip -->
+      <div class="profile-stats" id="profile-stats">
+        <div class="pstat"><div class="pstat-val" id="stat-total">—</div><div class="pstat-label">Total Bookings</div></div>
+        <div class="pstat"><div class="pstat-val" id="stat-confirmed">—</div><div class="pstat-label">Confirmed</div></div>
+        <div class="pstat"><div class="pstat-val" id="stat-cancelled">—</div><div class="pstat-label">Cancelled</div></div>
+        <div class="pstat"><div class="pstat-val" id="stat-spent">—</div><div class="pstat-label">Total Spent (EGP)</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Bookings Section ── -->
+  <div class="container profile-body">
+
+    <div class="bookings-header">
+      <h2>My Bookings</h2>
+      <div class="bookings-tabs">
+        <button class="tab-btn active" data-tab="all"     onclick="filterBookings('all',this)">All</button>
+        <button class="tab-btn"        data-tab="confirmed" onclick="filterBookings('confirmed',this)">Confirmed</button>
+        <button class="tab-btn"        data-tab="cancelled" onclick="filterBookings('cancelled',this)">Cancelled</button>
+      </div>
+    </div>
+
+    <div id="bookings-list" class="bookings-list">
+      <div class="bk-loading">Loading bookings…</div>
+    </div>
+
+    <div style="text-align:center; margin-top: 40px;">
+      <a href="../browse/index.html" class="btn btn-green btn-lg">+ Book a New Field</a>
+    </div>
+  </div>
+
+  <!-- ── Footer ── -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a class="nav-logo" href="../landing/index.html">
+          <div class="nav-logo-icon">⚽</div>
+          <span class="nav-logo-text">KickZone</span>
+        </a>
+        <p>Egypt's leading platform for finding and booking football fields.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <a href="../browse/index.html">Browse Fields</a>
+        <a href="../landing/index.html#how-it-works">How It Works</a>
+      </div>
+      <div class="footer-col">
+        <h4>Account</h4>
+        <a href="index.html">My Profile</a>
+        <a href="#" onclick="logout()">Logout</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 KickZone. All rights reserved.</p>
+      <p>Made with ❤️ for football lovers in Egypt</p>
+    </div>
+  </footer>
+
+  <!-- ── Edit Profile Modal ── -->
+  <div class="modal-overlay" id="edit-modal">
+    <div class="modal-card">
+      <button class="modal-close-btn" onclick="closeEditModal()">✕</button>
+      <h2>Edit Profile</h2>
+      <p class="modal-sub">Update your display name and phone number.</p>
+
+      <form id="edit-form" novalidate>
+        <div class="form-group">
+          <label class="form-label" for="edit-name">Full Name</label>
+          <div class="input-wrap">
+            <span class="i-icon">👤</span>
+            <input type="text" id="edit-name" class="form-input" placeholder="Ahmed Mohamed" required>
+          </div>
+          <div class="field-error" id="edit-name-err">Name must be at least 3 characters.</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="edit-phone">Phone Number</label>
+          <div class="input-wrap">
+            <span class="i-icon">📱</span>
+            <input type="tel" id="edit-phone" class="form-input" placeholder="01XXXXXXXXX">
+          </div>
+        </div>
+        <button type="submit" class="btn btn-green btn-full" id="edit-save-btn">Save Changes</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ── Cancel Confirm Modal ── -->
+  <div class="modal-overlay" id="cancel-modal">
+    <div class="modal-card modal-card-sm">
+      <h2>Cancel Booking?</h2>
+      <p class="modal-sub" style="margin-bottom:24px">
+        Are you sure you want to cancel this booking? This action cannot be undone.
+      </p>
+      <div style="display:flex;gap:12px;">
+        <button class="btn btn-ghost" style="flex:1" onclick="closeCancelModal()">Keep it</button>
+        <button class="btn btn-red"   style="flex:1" id="confirm-cancel-btn" onclick="confirmCancel()">Yes, Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../../shared/js/common.js"></script>
+  <script src="js/player.js"></script>
+</body>
+</html>
